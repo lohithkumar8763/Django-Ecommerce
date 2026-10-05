@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Orders - MyShop
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="orders-page">
+
+
+    <h1>
+        My Orders 📦
+    </h1>
+
+
+    <p class="orders-subtitle">
+
+        View your previous orders and their status.
+
+    </p>
+
+
+
+    {% for order in orders %}
+
+
+    <div class="order-card">
+
+
+        <div class="order-header">
+
+
+            <div>
+
+                <h2>
+                    Order #{{ order.id }}
+                </h2>
+
+
+                <p>
+
+                    {{ order.created_at|date:"d M Y, h:i A" }}
+
+                </p>
+
+            </div>
+
+
+            <span class="order-status">
+
+                {{ order.get_status_display }}
+
+            </span>
+
+
+        </div>
+
+
+
+        <div class="order-items">
+
+
+            {% for item in order.items.all %}
+
+
+            <div class="order-item">
+
+
+                <div>
+
+                    <h3>
+                        {{ item.product.name }}
+                    </h3>
+
+
+                    <p>
+
+                        ₹{{ item.price|floatformat:2 }}
+
+                        ×
+
+                        {{ item.quantity }}
+
+                    </p>
+
+                </div>
+
+
+                <strong>
+
+                    ₹{{ item.subtotal|floatformat:2 }}
+
+                </strong>
+
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+
+        <div class="order-total">
+
+
+            <span>
+                Total
+            </span>
+
+
+            <strong>
+
+                ₹{{ order.total_amount|floatformat:2 }}
+
+            </strong>
+
+
+        </div>
+
+
+        <div class="order-actions">
+
+            <a
+                href="{% url 'order_detail' order.id %}"
+                class="button"
+            >
+                View Details
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    {% empty %}
+
+
+    <div class="empty-orders">
+
+
+        <h2>
+            No orders yet 📦
+        </h2>
+
+
+        <p>
+            You haven't placed any orders yet.
+        </p>
+
+
+        <a
+            href="{% url 'products' %}"
+            class="continue-btn"
+        >
+            Start Shopping
+        </a>
+
+
+    </div>
+
+
+    {% endfor %}
+
+
+</div>
+
+
+{% endblock %}

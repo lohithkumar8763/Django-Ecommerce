@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ product.name }} - MyShop
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="product-detail">
+
+
+    <div class="product-detail-image">
+
+
+        {% if product.image %}
+
+            <img
+                src="{{ product.image.url }}"
+                alt="{{ product.name }}"
+            >
+
+        {% else %}
+
+            <div class="detail-no-image">
+                No Image
+            </div>
+
+        {% endif %}
+
+
+    </div>
+
+
+
+    <div class="product-detail-info">
+
+
+        <p class="product-category">
+
+            {{ product.category.name }}
+
+        </p>
+
+
+        <h1>
+
+            {{ product.name }}
+
+        </h1>
+
+
+        <p class="product-description">
+
+            {{ product.description }}
+
+        </p>
+
+
+        <h2 class="detail-price">
+
+            ₹{{ product.price }}
+
+        </h2>
+
+
+
+        {% if product.stock > 0 %}
+
+
+            <p class="stock available">
+
+                ✓ In Stock
+
+            </p>
+
+
+            <p>
+
+                Available quantity:
+
+                <strong>
+                    {{ product.stock }}
+                </strong>
+
+            </p>
+
+
+            <a
+                href="{% url 'add_to_cart' product.id %}"
+                class="add-cart-btn"
+            >
+                🛒 Add to Cart
+            </a>
+
+
+        {% else %}
+
+
+            <p class="stock out-of-stock">
+
+                ✕ Out of Stock
+
+            </p>
+
+
+        {% endif %}
+
+
+
+        <div class="detail-actions">
+
+
+            <a
+                href="{% url 'products' %}"
+                class="back-btn"
+            >
+                ← Continue Shopping
+            </a>
+
+
+            <a
+                href="{% url 'cart' %}"
+                class="cart-btn"
+            >
+                View Cart
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

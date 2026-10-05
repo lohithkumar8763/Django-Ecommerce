@@ -1,0 +1,143 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}MyShop{% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <a
+        class="brand"
+        href="{% url 'store' %}"
+    >
+        MyShop
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="{% url 'store' %}">
+            Home
+        </a>
+
+        <a href="{% url 'products' %}">
+            Products
+        </a>
+
+        <a href="{% url 'products' %}">
+            Categories
+        </a>
+
+        <a href="{% url 'cart' %}">
+            Cart 🛒
+        </a>
+
+
+        {% if user.is_authenticated %}
+
+            <a href="{% url 'orders' %}">
+                My Orders
+            </a>
+
+            <span class="user-text">
+                Hi, {{ user.username }}
+            </span>
+
+
+            <form
+                action="{% url 'logout' %}"
+                method="post"
+                class="inline-form"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    class="nav-button"
+                    type="submit"
+                >
+                    Logout
+                </button>
+
+            </form>
+
+
+        {% else %}
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+            <a href="{% url 'register' %}">
+                Register
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</nav>
+
+
+{% if messages %}
+
+<div class="messages">
+
+    {% for message in messages %}
+
+        <div class="message">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+
+<main class="container">
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 MyShop
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

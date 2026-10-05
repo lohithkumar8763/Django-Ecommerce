@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}
+Checkout - MyShop
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="checkout-box">
+
+
+    <h1>
+        Checkout
+    </h1>
+
+
+    <h2>
+        Order Summary
+    </h2>
+
+
+    {% for item in items %}
+
+
+        <div class="summary-row">
+
+            <span>
+                {{ item.product.name }}
+                ×
+                {{ item.quantity }}
+            </span>
+
+            <span>
+                ₹{{ item.subtotal }}
+            </span>
+
+        </div>
+
+
+    {% endfor %}
+
+
+    <hr>
+
+
+    <div class="summary-row total-row">
+
+        <strong>
+            Total
+        </strong>
+
+        <strong>
+            ₹{{ total }}
+        </strong>
+
+    </div>
+
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <button
+            class="button full"
+            type="submit"
+        >
+            Continue to Payment
+        </button>
+
+    </form>
+
+
+</div>
+
+
+{% endblock %}

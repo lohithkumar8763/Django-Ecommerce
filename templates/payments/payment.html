@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}
+Payment - MyShop
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="payment-box">
+
+
+    <h1>
+        Payment
+    </h1>
+
+
+    <p>
+        Order #{{ order.id }}
+    </p>
+
+
+    <h2>
+        Amount: ₹{{ order.total_amount }}
+    </h2>
+
+
+    <form method="post">
+
+        {% csrf_token %}
+
+
+        <label>
+
+            <input
+                type="radio"
+                name="method"
+                value="upi"
+                required
+            >
+
+            UPI
+
+        </label>
+
+
+        <label>
+
+            <input
+                type="radio"
+                name="method"
+                value="card"
+            >
+
+            Card
+
+        </label>
+
+
+        <label>
+
+            <input
+                type="radio"
+                name="method"
+                value="cod"
+            >
+
+            Cash on Delivery
+
+        </label>
+
+
+        <button
+            class="button full"
+            type="submit"
+        >
+            Pay Now
+        </button>
+
+
+    </form>
+
+
+    <p class="demo-note">
+
+        This is a demo payment system.
+        No real money is charged.
+
+    </p>
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home - MyShop
+{% endblock %}
+
+
+{% block content %}
+
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Welcome to MyShop
+        </h1>
+
+        <p>
+            Discover great products at great prices.
+        </p>
+
+        <a
+            href="{% url 'products' %}"
+            class="hero-btn"
+        >
+            Shop Now
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<section class="section">
+
+
+    <div class="section-header">
+
+        <h2>
+            Featured Products
+        </h2>
+
+        <a href="{% url 'products' %}">
+            View All
+        </a>
+
+    </div>
+
+
+
+    <div class="product-grid">
+
+
+        {% for product in products %}
+
+
+        <div class="product-card">
+
+
+            {% if product.image %}
+
+                <img
+                    src="{{ product.image.url }}"
+                    alt="{{ product.name }}"
+                >
+
+            {% else %}
+
+                <div class="no-image">
+                    No Image
+                </div>
+
+            {% endif %}
+
+
+
+            <div class="product-info">
+
+
+                <h3>
+                    {{ product.name }}
+                </h3>
+
+
+                <p class="product-description">
+
+                    {{ product.description|truncatewords:12 }}
+
+                </p>
+
+
+                <p class="price">
+
+                    ₹{{ product.price }}
+
+                </p>
+
+
+                <a
+                    href="{% url 'product_detail' product.id %}"
+                    class="view-btn"
+                >
+                    View Product
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+        {% empty %}
+
+
+            <p>
+                No products available yet.
+            </p>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+</section>
+
+
+{% endblock %}

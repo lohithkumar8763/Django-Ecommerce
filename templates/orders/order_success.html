@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}
+Order Successful - MyShop
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="success-box">
+
+
+    <h1>
+        Order Successful 🎉
+    </h1>
+
+
+    <p>
+        Thank you, {{ user.username }}.
+    </p>
+
+
+    <p>
+
+        Your order number is
+
+        <strong>
+            #{{ order.id }}
+        </strong>
+
+    </p>
+
+
+    <p>
+
+        Total paid:
+
+        <strong>
+            ₹{{ order.total_amount }}
+        </strong>
+
+    </p>
+
+
+    <p>
+
+        Status:
+
+        <strong>
+            {{ order.get_status_display }}
+        </strong>
+
+    </p>
+
+
+    <a
+        class="button"
+        href="{% url 'order_detail' order.id %}"
+    >
+        View Order Details
+    </a>
+
+
+    <a
+        class="secondary-button"
+        href="{% url 'orders' %}"
+    >
+        My Orders
+    </a>
+
+
+    <a
+        class="secondary-button"
+        href="{% url 'products' %}"
+    >
+        Continue Shopping
+    </a>
+
+
+</div>
+
+
+{% endblock %}

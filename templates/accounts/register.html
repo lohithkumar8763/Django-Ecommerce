@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register - MyShop
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="auth-container">
+
+
+    <div class="auth-box">
+
+
+        <h1>
+            Create Account 👤
+        </h1>
+
+
+        <p class="auth-subtitle">
+            Create an account to start shopping
+        </p>
+
+
+
+        {% if form.non_field_errors %}
+
+
+            <div class="auth-error">
+
+                {{ form.non_field_errors }}
+
+            </div>
+
+
+        {% endif %}
+
+
+
+        <form method="post">
+
+            {% csrf_token %}
+
+
+            {% for field in form %}
+
+
+                <div class="form-group">
+
+
+                    <label
+                        for="{{ field.id_for_label }}"
+                    >
+                        {{ field.label }}
+                    </label>
+
+
+                    {{ field }}
+
+
+                    {% if field.help_text %}
+
+                        <small class="help-text">
+
+                            {{ field.help_text|safe }}
+
+                        </small>
+
+                    {% endif %}
+
+
+
+                    {% for error in field.errors %}
+
+                        <small class="field-error">
+
+                            {{ error }}
+
+                        </small>
+
+                    {% endfor %}
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+
+            <button
+                type="submit"
+                class="auth-button"
+            >
+                Create Account
+            </button>
+
+
+        </form>
+
+
+
+        <p class="auth-footer">
+
+            Already have an account?
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+        </p>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

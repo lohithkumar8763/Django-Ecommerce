@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+
+{% block title %}
+Order #{{ order.id }} - MyShop
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="order-detail-page">
+
+
+    <div class="order-detail-header">
+
+
+        <div>
+
+            <h1>
+                Order #{{ order.id }}
+            </h1>
+
+
+            <p>
+
+                Placed on
+                {{ order.created_at|date:"d M Y, h:i A" }}
+
+            </p>
+
+        </div>
+
+
+        <span class="order-status">
+
+            {{ order.get_status_display }}
+
+        </span>
+
+
+    </div>
+
+
+
+    <div class="order-detail-card">
+
+
+        <h2>
+            Order Items
+        </h2>
+
+
+        {% for item in order.items.all %}
+
+
+        <div class="detail-order-item">
+
+
+            <div class="detail-product">
+
+
+                {% if item.product.image %}
+
+                    <img
+                        src="{{ item.product.image.url }}"
+                        alt="{{ item.product.name }}"
+                    >
+
+                {% else %}
+
+                    <div class="detail-product-no-image">
+                        No Image
+                    </div>
+
+                {% endif %}
+
+
+                <div>
+
+                    <h3>
+                        {{ item.product.name }}
+                    </h3>
+
+
+                    <p>
+                        Price: ₹{{ item.price|floatformat:2 }}
+                    </p>
+
+
+                    <p>
+                        Quantity: {{ item.quantity }}
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <strong>
+
+                ₹{{ item.subtotal|floatformat:2 }}
+
+            </strong>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+
+        <div class="detail-total">
+
+
+            <span>
+                Total Amount
+            </span>
+
+
+            <strong>
+
+                ₹{{ order.total_amount|floatformat:2 }}
+
+            </strong>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="order-detail-card">
+
+
+        <h2>
+            Payment Information
+        </h2>
+
+
+        {% if order.payment %}
+
+
+            <div class="payment-info-row">
+
+                <span>
+                    Payment Method
+                </span>
+
+                <strong>
+                    {{ order.payment.get_method_display }}
+                </strong>
+
+            </div>
+
+
+            <div class="payment-info-row">
+
+                <span>
+                    Payment Status
+                </span>
+
+                <strong>
+                    {{ order.payment.get_status_display }}
+                </strong>
+
+            </div>
+
+
+            <div class="payment-info-row">
+
+                <span>
+                    Amount
+                </span>
+
+                <strong>
+                    ₹{{ order.payment.amount|floatformat:2 }}
+                </strong>
+
+            </div>
+
+
+            {% if order.payment.paid_at %}
+
+            <div class="payment-info-row">
+
+                <span>
+                    Paid On
+                </span>
+
+                <strong>
+
+                    {{ order.payment.paid_at|date:"d M Y, h:i A" }}
+
+                </strong>
+
+            </div>
+
+            {% endif %}
+
+
+        {% else %}
+
+
+            <p class="no-payment">
+                Payment information is not available yet.
+            </p>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+
+    <div class="order-detail-actions">
+
+
+        <a
+            href="{% url 'orders' %}"
+            class="back-btn"
+        >
+            ← My Orders
+        </a>
+
+
+        <a
+            href="{% url 'products' %}"
+            class="cart-btn"
+        >
+            Continue Shopping
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

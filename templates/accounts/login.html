@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}
+Login - MyShop
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="auth-container">
+
+
+    <div class="auth-box">
+
+
+        <h1>
+            Welcome To My Store 👋
+        </h1>
+
+
+        <p class="auth-subtitle">
+            Login to continue shopping
+        </p>
+
+
+
+        {% if form.errors %}
+
+            <div class="auth-error">
+
+                Username or password is incorrect.
+
+            </div>
+
+        {% endif %}
+
+
+
+        <form method="post">
+
+            {% csrf_token %}
+
+
+            <div class="form-group">
+
+
+                <label
+                    for="{{ form.username.id_for_label }}"
+                >
+                    Username
+                </label>
+
+
+                {{ form.username }}
+
+
+            </div>
+
+
+
+            <div class="form-group">
+
+
+                <label
+                    for="{{ form.password.id_for_label }}"
+                >
+                    Password
+                </label>
+
+
+                {{ form.password }}
+
+
+            </div>
+
+
+
+            <input
+                type="hidden"
+                name="next"
+                value="{{ next }}"
+            >
+
+
+            <button
+                type="submit"
+                class="auth-button"
+            >
+                Login
+            </button>
+
+
+        </form>
+
+
+
+        <p class="auth-footer">
+
+            Don't have an account?
+
+            <a href="{% url 'register' %}">
+                Create an account
+            </a>
+
+        </p>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}
